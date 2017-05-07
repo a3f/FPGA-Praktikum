@@ -1,6 +1,6 @@
 entity myand_e is
     port (a, b : in bit; res : out bit);
-end myand_e;
+end entity myand_e;
 
         
 architecture behav of myand_e is

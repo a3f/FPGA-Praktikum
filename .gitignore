@@ -5,3 +5,5 @@ myand_tb
 myor_tb
 work/
 !work/.gitkeep
+.DS_Store
+*.lst
