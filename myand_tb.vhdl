@@ -9,7 +9,7 @@ architecture behav of myand_tb is
     end component;
 
    --  Specifies which entity is bound with the component.
-    for instance: myand use entity work.myand;
+    for instance: myand use entity work.binaryop;
         signal a, b, res : bit;
 begin
    --  Component instantiation.

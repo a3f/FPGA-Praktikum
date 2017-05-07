@@ -1,8 +1,8 @@
-entity myand is
+entity binaryop is
     port (a, b : in bit; res : out bit);
-end myand;
+end binaryop;
         
-architecture behav of myand is
+architecture behav of binaryop is
 begin
     myand : process(a, b)
     begin
