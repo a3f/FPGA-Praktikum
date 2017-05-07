@@ -1,2 +1,7 @@
 *.cf
 *.vcd
+mynot_tb
+myand_tb
+myor_tb
+work/
+!work/.gitkeep

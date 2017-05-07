@@ -1,20 +1,28 @@
-test_myand: myand
-	ghdl -a myand_tb.vhdl
-	ghdl -e myand_tb
-	ghdl -r myand_tb --vcd=myand.vcd
+# Makefile for GHDL/GCC projects
+# Seems to have problems with parallel make
 
-myand:
-	ghdl -a myand.vhdl
+GHDL_FLAGS = --workdir=work
+
+all: myand.o myor.o mynot.o
+
+%.o: %.vhdl
+	ghdl -a $(GHDL_FLAGS) $^
 
 
-ifeq ($(OS),Windows_NT)
-## No rm?
-ifeq (, $(shell where rm 2>NUL)) 
-RM = del /Q 2>NUL
-# Powershell, cygwin and msys all provide rm(1)
-endif
-endif
+
+test: all myand_tb myor_tb mynot_tb
+	./myand_tb --vcd=$@.vcd && rm $@.vcd
+	./myor_tb  --vcd=$@.vcd && rm $@.vcd
+	./mynot_tb --vcd=$@.vcd && rm $@.vcd
+
+%: testbench/%.o
+	ghdl -e $(GHDL_FLAGS) $@
+
 
 .PHONY: clean
 clean:
-	$(RM) *.vcd
+	$(RM) *.vcd testbench/*.vcd
+	ghdl --remove
+	cd testbench && ghdl --remove
+	cd work && ghdl --remove
+	$(RM) -f myand_tb myor_tb mynot_tb

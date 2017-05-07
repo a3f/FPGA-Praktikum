@@ -9,7 +9,7 @@ architecture behav of myand_tb is
     end component;
 
    --  Specifies which entity is bound with the component.
-    for instance: myand use entity work.binaryop;
+    for instance: myand use entity work.myand_e;
         signal a, b, res : bit;
 begin
    --  Component instantiation.
@@ -41,7 +41,7 @@ begin
             end loop;
             assert false report
             -- ANSI escape characters for green text
-            Character'Val(27) & "[32mAll is well!" & Character'Val(27) & "[m"
+            Character'Val(27) & "[32mTest's over." & Character'Val(27) & "[m"
             severity note;
       --  Wait forever; this will finish the simulation.
             wait;
