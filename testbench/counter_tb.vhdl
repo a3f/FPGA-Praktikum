@@ -51,6 +51,54 @@ begin
             clk <= '0'; wait for 2 ns; clk <= '1'; wait for 1 ns;
             assert pulse = '1' report "Expected a pulse" severity error;
 
+            clk <= '0'; wait for 2 ns; clk <= '1'; wait for 1 ns;
+
+            clk <= '0'; wait for 2 ns; clk <= '1'; wait for 1 ns;
+
+            clk <= '0'; wait for 2 ns; clk <= '1'; wait for 1 ns;
+
+            clk <= '0'; wait for 2 ns; clk <= '1'; wait for 1 ns;
+
+            clk <= '0'; wait for 2 ns; clk <= '1'; wait for 1 ns;
+
+            clk <= '0'; wait for 2 ns; clk <= '1'; wait for 1 ns;
+
+            clk <= '0'; wait for 2 ns; clk <= '1'; wait for 1 ns;
+
+            clk <= '0'; wait for 2 ns; clk <= '1'; wait for 1 ns;
+
+            clk <= '0'; wait for 2 ns; clk <= '1'; wait for 1 ns;
+
+            clk <= '0'; wait for 2 ns; clk <= '1'; wait for 1 ns;
+
+            clk <= '0'; wait for 2 ns; clk <= '1'; wait for 1 ns;
+
+            clk <= '0'; wait for 2 ns; clk <= '1'; wait for 1 ns;
+
+            clk <= '0'; wait for 2 ns; clk <= '1'; wait for 1 ns;
+
+            clk <= '0'; wait for 2 ns; clk <= '1'; wait for 1 ns;
+
+            clk <= '0'; wait for 2 ns; clk <= '1'; wait for 1 ns;
+
+            clk <= '0'; wait for 2 ns; clk <= '1'; wait for 1 ns;
+
+            clk <= '0'; wait for 2 ns; clk <= '1'; wait for 1 ns;
+
+            clk <= '0'; wait for 2 ns; clk <= '1'; wait for 1 ns;
+
+            clk <= '0'; wait for 2 ns; clk <= '1'; wait for 1 ns;
+
+            clk <= '0'; wait for 2 ns; clk <= '1'; wait for 1 ns;
+
+            clk <= '0'; wait for 2 ns; clk <= '1'; wait for 1 ns;
+
+            clk <= '0'; wait for 2 ns; clk <= '1'; wait for 1 ns;
+
+            clk <= '0'; wait for 2 ns; clk <= '1'; wait for 1 ns;
+
+            clk <= '0'; wait for 2 ns; clk <= '1'; wait for 1 ns;
+
             wait;
 
         end process;
