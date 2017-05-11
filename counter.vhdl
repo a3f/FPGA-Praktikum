@@ -19,7 +19,7 @@ begin process(clk)
 begin
     --if clk'event and clk='1' then
     if rising_edge(clk) then
-        if counter < counter'min then
+        if counter < ticks then
             counter <= counter + 1;
             pulse <= level;
         else
