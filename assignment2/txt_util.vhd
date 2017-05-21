@@ -1,5 +1,6 @@
 library ieee;
 use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
 use std.textio.all;
 
 package txt_util is
@@ -35,6 +36,9 @@ package txt_util is
 
     -- convert std_logic_vector into a string in hex format
     function hstr(slv: std_logic_vector) return string;
+
+    -- convert std_logic_vector into a string in dec format
+    function dstr(slv: std_logic_vector) return string;
 
 
     -- functions to manipulate strings
@@ -293,6 +297,12 @@ package body txt_util is
        end loop;
        return hex(1 to hexlen);
      end hstr;
+
+   -- converts a std_logic_vector into a dec string.
+   function dstr(slv: std_logic_vector) return string is
+     begin
+         return str(to_integer(unsigned(slv)));
+     end dstr;
 
    -- functions to manipulate strings
    -----------------------------------

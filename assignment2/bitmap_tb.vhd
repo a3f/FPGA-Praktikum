@@ -14,7 +14,7 @@ architecture behav of bitmap_tb is
     port (
          clk : in std_logic;
          hsync, vsync : out std_logic;
-         retracing : out std_logic := '1'; -- maybe we don't need this?
+         retracing : buffer std_logic := '1'; -- maybe we don't need this?
          col : out std_logic_vector (9 downto 0); -- 640 = 10_1000_0000b
          row : out std_logic_vector (8 downto 0) -- 480 = 1_1110_0000b
     );
@@ -75,16 +75,17 @@ architecture behav of bitmap_tb is
             if rising_edge(clk) then
                 if retracing = '0' then
                     if drawing = '1' and not wrote_header then
-                        write(fp, "P6 640 480 255 ");
+                        write(fp, "P3 641 481 15 ");
 
                         wrote_header := true;
                     end if;
 
 
                 write(fp,
-                    Character'Val(to_integer(unsigned(r & "0000"))) &
-                    Character'Val(to_integer(unsigned(g & "0000"))) &
-                    Character'Val(to_integer(unsigned(b & "0000")))
+                    --Character'Val(to_integer(unsigned(r & "0000"))) &
+                    --Character'Val(to_integer(unsigned(g & "0000"))) &
+                    --Character'Val(to_integer(unsigned(b & "0000")))
+                    dstr(r) & " " & dstr(g) & " " & dstr(b) & " "
                 );
                 --assert false report "Reached " & str(i)  severity note;
                 end if;
