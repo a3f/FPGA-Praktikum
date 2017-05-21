@@ -83,7 +83,7 @@ architecture behav of bitmap_tb is
                 if retracing = '0' then
                     if drawing = '1' and not wrote_header then
                         -- or P3 for the legacy format 
-                        write(fp, "P6 640 480 15 ");
+                        write(fp, "P6 640 480 255 ");
 
                         wrote_header := true;
                     end if;

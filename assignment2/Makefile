@@ -4,7 +4,7 @@
 
 GHDL_FLAGS = --workdir=work --std=93
 
-all: sync.o gradient.o txt_util.o text ;
+all: sync.o gradient.o txt_util.o bitmap ;
 
 %.o: %.vhd
 	ghdl -a $(GHDL_FLAGS) $^
