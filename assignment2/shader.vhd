@@ -21,8 +21,8 @@ begin
     process(retracing, x, y)
     begin
         if retracing = '0' then -- i shouldnt need this, right?
-            r <= "0000";
-            g <= "0000";
+            r <= x(9 downto 6);
+            g <= y(8 downto 5);
             b <= "0000";
             if x = "0000000000" or y = "000000000" or x = "1001111111" or y = "111011111" then
                 r <= "1111";
