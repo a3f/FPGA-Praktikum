@@ -301,6 +301,9 @@ package body txt_util is
    -- converts a std_logic_vector into a dec string.
    function dstr(slv: std_logic_vector) return string is
      begin
+         if slv = "UUUU" then
+             return "0000";
+         end if;
          return str(to_integer(unsigned(slv)));
      end dstr;
 

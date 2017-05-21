@@ -4,7 +4,7 @@
 
 GHDL_FLAGS = --workdir=work --std=93
 
-all: sync.o gradient.o txt_util.o ;
+all: sync.o gradient.o txt_util.o text ;
 
 %.o: %.vhd
 	ghdl -a $(GHDL_FLAGS) $^
@@ -21,7 +21,7 @@ text: text_tb.o
 
 .PHONY: clean
 clean:
-	$(RM) *.vcd vga.txt vga.pbm
+	$(RM) *.vcd vga.txt vga.pbm vga.ppm
 	ghdl --remove
 	$(RM) *.o *.cf *.lst
 	cd work && $(RM) *.o *.cf *.lst

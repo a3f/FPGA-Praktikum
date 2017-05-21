@@ -29,9 +29,9 @@ begin
             r <= x(9 downto 6);
             g <= y(8 downto 5);
             --if y(5) = '1' then
-                --b <= "1111";
                 --r <= "0000";
                 --g <= "0000";
+                --b <= "1111";
             --else
                 --r <= "1111";
                 --g <= "1111";
@@ -44,6 +44,6 @@ begin
             --end if;
         end if;
     end process;
-    b <= "0101";
+    --b <= "0101";
 end architecture;
 

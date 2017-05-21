@@ -47,23 +47,22 @@ architecture behavioral of sync is
 
 begin
     process(clk)
+        variable h_idx: integer range 0 to h_max := 0;
+        variable v_idx: integer range 0 to v_max := 0;
         variable in_retrace : boolean := true;
-        variable h_idx: integer range 0 to h_max := h_max;
-        variable v_idx: integer range 0 to v_max := v_max;
     begin
-        if rising_edge(clk) then -- or clk'event?
+        if rising_edge(clk) then
             if h_idx >= h_max - h_sync then hsync <= '0'; end if;
             if v_idx >= v_max - v_sync then vsync <= '0'; end if;
 
-            in_retrace := h_idx < h_back or h_idx > h_display + h_back
-            or v_idx < v_back or v_idx > v_display + v_back;
+            in_retrace := h_idx < h_back - 1 or h_idx > h_display + h_back - 2
+            or v_idx < v_back - 1 or v_idx > v_display + v_back - 2;
 
             retracing <= high_if (in_retrace);
 
             if not in_retrace then
-            --if h_idx = h_back - 1 r v_idx = v_back - 1 then
-                row <= std_logic_vector(to_unsigned(v_idx - v_back, row'length));
-                col <= std_logic_vector(to_unsigned(h_idx - h_back, col'length));
+                row <= std_logic_vector(to_unsigned(v_idx - v_back + 1, row'length));
+                col <= std_logic_vector(to_unsigned(h_idx - h_back + 1, col'length));
             end if;
 
             if h_idx = h_max then
@@ -78,6 +77,8 @@ begin
             else
                 h_idx := h_idx + 1;
             end if;
+
+
 
         end if;
     end process;

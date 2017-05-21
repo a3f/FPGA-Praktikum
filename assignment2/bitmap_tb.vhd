@@ -14,7 +14,7 @@ architecture behav of bitmap_tb is
     port (
          clk : in std_logic;
          hsync, vsync : out std_logic;
-         retracing : buffer std_logic := '1'; -- maybe we don't need this?
+         retracing : out std_logic := '1'; -- maybe we don't need this?
          col : out std_logic_vector (9 downto 0); -- 640 = 10_1000_0000b
          row : out std_logic_vector (8 downto 0) -- 480 = 1_1110_0000b
     );
@@ -58,7 +58,7 @@ architecture behav of bitmap_tb is
         end process;
 
         printer: process (clk, retracing, drawing)
-        file fp: text open write_mode is "vga.pbm";
+        file fp: text open write_mode is "vga.ppm";
 
         function vtou16 ( a: std_logic_vector) return string is
             variable b : string (1 to a'length) := (others => NUL);
@@ -75,13 +75,16 @@ architecture behav of bitmap_tb is
             if rising_edge(clk) then
                 if retracing = '0' then
                     if drawing = '1' and not wrote_header then
-                        write(fp, "P3 641 481 15 ");
+                        -- PBM format is P6
+                        write(fp, "P3 640 480 15 ");
 
                         wrote_header := true;
                     end if;
 
 
                 write(fp,
+                    -- for PBM, we use PPM though, because as far as I understand it,
+                    -- PBM only has non-linear color spaces.
                     --Character'Val(to_integer(unsigned(r & "0000"))) &
                     --Character'Val(to_integer(unsigned(g & "0000"))) &
                     --Character'Val(to_integer(unsigned(b & "0000")))
