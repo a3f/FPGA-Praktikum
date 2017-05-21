@@ -24,7 +24,7 @@ architecture behav of text_tb is
     );
     end component;
 
-    component shader
+    component square_shader
     port (
           retracing : in std_logic; -- can we get rid of this one?
           x : in std_logic_vector (9 downto 0); -- 640 = 10_1000_0000b
@@ -36,7 +36,7 @@ architecture behav of text_tb is
 
    --  Specifies which entity is bound with the component.
     for inst_sync:     sync     use entity work.sync;
-    for inst_shader: shader use entity work.shader;
+    for inst_square_shader: square_shader use entity work.square_shader;
 
     signal clk : std_logic := '0';
     constant clk_rate   : natural := 100000000;
@@ -50,7 +50,7 @@ architecture behav of text_tb is
     begin
    --  Component instantiation.
         inst_sync:     sync     port map (clk, hsync, vsync, retracing, col, row);
-        inst_shader: shader port map (retracing, col, row, r, g, b);
+        inst_square_shader: square_shader port map (retracing, col, row, 100, 100, r, g, b);
 
         process
         begin
