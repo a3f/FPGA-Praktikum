@@ -70,25 +70,29 @@ architecture behav of bitmap_tb is
             end loop;
             return b;
         end vtou16;
+        function octet ( v: std_logic_vector) return string is
+        begin
+            if v = "UUUU" then
+                return "" & Character'Val(0);
+            end if;
+            return "" & Character'Val(to_integer(unsigned(v & "0000")));
+        end octet;
         variable wrote_header : boolean := false;
         begin
             if rising_edge(clk) then
                 if retracing = '0' then
                     if drawing = '1' and not wrote_header then
-                        -- PBM format is P6
-                        write(fp, "P3 640 480 15 ");
+                        -- or P3 for the legacy format 
+                        write(fp, "P6 640 480 15 ");
 
                         wrote_header := true;
                     end if;
 
 
                 write(fp,
-                    -- for PBM, we use PPM though, because as far as I understand it,
-                    -- PBM only has non-linear color spaces.
-                    --Character'Val(to_integer(unsigned(r & "0000"))) &
-                    --Character'Val(to_integer(unsigned(g & "0000"))) &
-                    --Character'Val(to_integer(unsigned(b & "0000")))
-                    dstr(r) & " " & dstr(g) & " " & dstr(b) & " "
+                    octet(r) & octet(g) & octet(b)
+                    -- Legacy format is in ASCII:
+                    -- dstr(r) & " " & dstr(g) & " " & dstr(b) & " "
                 );
                 --assert false report "Reached " & str(i)  severity note;
                 end if;
