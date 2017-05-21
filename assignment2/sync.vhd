@@ -39,12 +39,6 @@ architecture behavioral of sync is
         if cond then return '0'; else return '1'; end if;
     end function;
 
-    function incr_till(num : integer range 0 to 1) return integer is
-    begin
-        --if num = num'High then return 0; else return num; end if;
-        return 0;
-    end function;
-
 begin
     process(clk)
         variable h_idx: integer range 0 to h_max := 0;
