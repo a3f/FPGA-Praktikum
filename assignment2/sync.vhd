@@ -8,8 +8,9 @@ entity sync is
          hsync : out std_logic := '1';
          vsync : out std_logic := '1';
          retracing : out std_logic := '1'; -- maybe we don't need this?
-         col : out std_logic_vector (9 downto 0); -- 640 = 10_1000_0000b
-         row : out std_logic_vector (8 downto 0) -- 480 = 1_1110_0000b
+-- Dunno why, but if I zero-initialize these, the very first pixel is black in the bitmap_tb
+         col : out std_logic_vector (9 downto 0) := (others => '1'); -- 640 = 10_1000_0000b
+         row : out std_logic_vector (8 downto 0) := (others => '1') -- 480 = 1_1110_0000b
     );
 end entity sync;
 
@@ -50,12 +51,12 @@ begin
             if v_idx >= v_max - v_sync then vsync <= '0'; end if;
 
             in_retrace := h_idx < h_back - 1 or h_idx > h_display + h_back - 2
-            or v_idx < v_back - 1 or v_idx > v_display + v_back - 2;
+            or v_idx < v_back or v_idx > v_display + v_back - 1;
 
             retracing <= high_if (in_retrace);
 
             if not in_retrace then
-                row <= std_logic_vector(to_unsigned(v_idx - v_back + 1, row'length));
+                row <= std_logic_vector(to_unsigned(v_idx - v_back,     row'length));
                 col <= std_logic_vector(to_unsigned(h_idx - h_back + 1, col'length));
             end if;
 
