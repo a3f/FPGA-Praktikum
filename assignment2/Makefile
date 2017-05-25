@@ -4,9 +4,9 @@
 
 GHDL_FLAGS = --workdir=work --std=93
 
-all: sync.o square_shader.o txt_util.o bitmap ;
+all: sync.o txt_util.o color_util.o input.o square_shader.o bitmap ;
 
-square: sync.o square_shader.o txt_util.o input.o bitmap;
+square: txt_util.o color_util.o sync.o input.o square_shader.o bitmap;
 
 %.o: %.vhd
 	ghdl -a $(GHDL_FLAGS) $^

@@ -2,6 +2,8 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
+use work.color_util.all;
+
 entity square_shader is
     generic (WIDTH, HEIGHT : natural);
     port (
@@ -33,16 +35,12 @@ begin
             g <= y(8 downto 5);
             b <= "0000";
             if x = "0000000000" or y = "000000000" or x = "1001111111" or y = "111011111" then
-                r <= "1111";
-                g <= "1111";
-                b <= "1111";
+                (r, g, b) <= WHITE;
             end if;
 
             if  x_int >= origin_x and x_int < origin_x + WIDTH
             and y_int >= origin_y and y_int < origin_y + HEIGHT then
-                r <= "1111";
-                g <= "1111";
-                b <= "1111";
+                (r, g, b) <= YELLOW;
             end if;
         end if;
     end process;

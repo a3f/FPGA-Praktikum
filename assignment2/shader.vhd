@@ -2,6 +2,8 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
+use work.color_util.all;
+
 entity shader is
     port (
           retracing : in std_logic; -- can we get rid of this one or at least rename it to en?
@@ -25,12 +27,10 @@ begin
             g <= y(8 downto 5);
             b <= "0000";
             if x = "0000000000" or y = "000000000" or x = "1001111111" or y = "111011111" then
-                r <= "1111";
-                g <= "1111";
-                b <= "1111";
+                (r, g, b) <= WHITE;
             end if;
         end if;
     end process;
-    --b <= "0101";
+--b <= "0101";
 end architecture;
 
