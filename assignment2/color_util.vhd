@@ -2,7 +2,7 @@ library ieee;
 use ieee.std_logic_1164.all;
 
 package color_util is
-    type rgb_t is array (1 to 3) of std_logic_vector(3 downto 0);
+    type rgb_t is record r, g, b : std_logic_vector(3 downto 0); end record;
     function rgb (color: std_logic_vector(11 downto 0)) return rgb_t;
 
     -- Raylib's color palette
