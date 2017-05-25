@@ -16,7 +16,7 @@ bitmap: bitmap_tb.o
 	ghdl -e $(GHDL_FLAGS) bitmap_tb
 	ghdl -r $(GHDL_FLAGS) bitmap_tb --vcd=bitmap_tb.vcd
 
-text: text_tb.o
+text: txt_util.o color_util.o shader.o sync.o text_tb.o 
 	ghdl -e $(GHDL_FLAGS) text_tb
 	ghdl -r $(GHDL_FLAGS) text_tb --vcd=text_tb.vcd
 

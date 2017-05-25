@@ -4,6 +4,7 @@ use ieee.std_logic_1164.all;
 package color_util is
     type rgb_t is record r, g, b : std_logic_vector(3 downto 0); end record;
     function rgb (color: std_logic_vector(11 downto 0)) return rgb_t;
+    function rgb_negate(color : rgb_t) return rgb_t;
 
     -- Raylib's color palette
     constant BEIGE     : rgb_t := ( "1101", "1011", "1000" );
@@ -44,6 +45,11 @@ package body color_util is
         subtype b is std_logic_vector ( 3 downto 0);
     begin
         return rgb_t'(color(r'range), color(g'range), color(b'range));
+    end function;
+
+    function rgb_negate(color : rgb_t) return rgb_t is
+    begin
+        return rgb_t'(not color.r, not color.g, not color.b);
     end function;
 
 end color_util;

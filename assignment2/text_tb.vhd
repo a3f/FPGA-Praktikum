@@ -24,9 +24,8 @@ architecture behav of text_tb is
     );
     end component;
 
-    component square_shader
+    component shader
     port (
-          retracing : in std_logic; -- can we get rid of this one?
           x : in std_logic_vector (9 downto 0); -- 640 = 10_1000_0000b
           y : in std_logic_vector (8 downto 0); -- 480 = 1_1110_0000b
 
@@ -36,7 +35,7 @@ architecture behav of text_tb is
 
    --  Specifies which entity is bound with the component.
     for inst_sync:     sync     use entity work.sync;
-    for inst_square_shader: square_shader use entity work.square_shader;
+    for inst_shader: shader use entity work.shader;
 
     signal clk : std_logic := '0';
     constant clk_rate   : natural := 100000000;
@@ -47,18 +46,20 @@ architecture behav of text_tb is
     signal col : std_logic_vector (9 downto 0);
 
     signal r, g, b : std_logic_vector (3 downto 0);
+
     begin
    --  Component instantiation.
         inst_sync:     sync     port map (clk, hsync, vsync, retracing, col, row);
-        inst_square_shader: square_shader port map (retracing, col, row, 100, 100, r, g, b);
+        inst_shader: shader port map (col, row, r, g, b);
 
-        process
+
+        clock: process
         begin
             clk <= '0'; wait for clk_period;
             clk <= '1'; wait for clk_period;
         end process;
 
-        process (clk, retracing)
+        printer: process (clk, retracing)
         file fp: text open write_mode is "vga.txt";
 
         function vtoa ( a: std_logic_vector) return string is
@@ -98,5 +99,6 @@ architecture behav of text_tb is
         end if;
     end process;
 end behav;
+
 
 

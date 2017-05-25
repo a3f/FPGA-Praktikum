@@ -6,7 +6,6 @@ use work.color_util.all;
 
 entity shader is
     port (
-          retracing : in std_logic; -- can we get rid of this one or at least rename it to en?
           x : in std_logic_vector (9 downto 0); -- 640 = 10_1000_0000b
           y : in std_logic_vector (8 downto 0); -- 480 = 1_1110_0000b
 
@@ -20,17 +19,14 @@ architecture behavioral of shader is
     constant v_display  : integer := 480;
 
 begin
-    process(retracing, x, y)
+    process(x, y)
     begin
-        if retracing = '0' then -- i shouldnt need this, right?
-            r <= x(9 downto 6);
-            g <= y(8 downto 5);
-            b <= "0000";
-            if x = "0000000000" or y = "000000000" or x = "1001111111" or y = "111011111" then
-                (r, g, b) <= WHITE;
-            end if;
+        r <= x(9 downto 6);
+        g <= y(8 downto 5);
+        b <= "0000";
+        if x = "0000000000" or y = "000000000" or x = "1001111111" or y = "111011111" then
+            (r, g, b) <= WHITE;
         end if;
     end process;
---b <= "0101";
 end architecture;
 

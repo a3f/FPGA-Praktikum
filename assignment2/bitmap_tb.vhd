@@ -14,7 +14,7 @@ architecture behav of bitmap_tb is
     port (
          clk : in std_logic;
          hsync, vsync : out std_logic;
-         retracing : out std_logic := '1'; -- maybe we don't need this?
+         retracing : out std_logic; -- maybe we don't need this?
          col : out std_logic_vector (9 downto 0); -- 640 = 10_1000_0000b
          row : out std_logic_vector (8 downto 0) -- 480 = 1_1110_0000b
     );
@@ -23,7 +23,6 @@ architecture behav of bitmap_tb is
     component square_shader
     generic (WIDTH, HEIGHT : natural);
     port (
-          retracing : in std_logic; -- can we get rid of this one?
           x : in std_logic_vector (9 downto 0); -- 640 = 10_1000_0000b
           y : in std_logic_vector (8 downto 0); -- 480 = 1_1110_0000b
 
@@ -54,7 +53,7 @@ architecture behav of bitmap_tb is
     constant clk_rate   : natural := 25175000;
     constant clk_period : time := 1 sec / clk_rate;
 
-    signal retracing : std_logic := '1';
+    signal retracing : std_logic;
     signal row : std_logic_vector (8 downto 0);
     signal col : std_logic_vector (9 downto 0);
 
@@ -72,7 +71,7 @@ architecture behav of bitmap_tb is
         port map (clk, '0', '0', '0', '0', origin_x, origin_y);
         inst_square_shader: square_shader
         generic map (WIDTH => 64, HEIGHT => 48)
-        port map (retracing, col, row, origin_x, origin_y, r, g, b);
+        port map (col, row, origin_x, origin_y, r, g, b);
 
 
         clock: process
