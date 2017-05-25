@@ -26,13 +26,21 @@ begin
     process(x, y)
         variable x_int, y_int : natural;
         variable color_tmp : rgb_t;
+
+        variable tmp : std_logic := '0';
+        impure function lfsr_cycle(number_tmp : std_logic_vector) return std_logic_vector is
+        begin
+            tmp := number_tmp(2) xor number_tmp(0);
+            return tmp & number_tmp(3 downto 1);
+        end function;
     begin
         x_int := to_integer(unsigned(x));
         y_int := to_integer(unsigned(y));
 
         color_tmp.r := x(9 downto 6);
         color_tmp.g := y(8 downto 5);
-        color_tmp.b := "0000";
+         --color_tmp.b := "0000";
+         color_tmp.b := lfsr_cycle(color_tmp.b) xor x(4 downto 1) xor y(5 downto 2);
 
         if x = "0000000000" or y = "000000000" or x = "1001111111" or y = "111011111" then
             color_tmp := WHITE;
@@ -43,6 +51,8 @@ begin
            color_tmp := rgb_negate(color_tmp);
         end if;
         (r, g, b) <= color_tmp;
+        -- aggregate assignment is VHDL 2008, if it doesn't work use a helper procedure:
+        -- nibbles_from_rgb(r, g, b, color_tmp);
     end process;
 end architecture;
 

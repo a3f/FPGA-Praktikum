@@ -6,6 +6,8 @@ package color_util is
     function rgb (color: std_logic_vector(11 downto 0)) return rgb_t;
     function rgb_negate(color : rgb_t) return rgb_t;
 
+    procedure nibbles_from_rgb(signal r,g,b : out std_logic_vector (3 downto 0); rgb : in rgb_t);
+
     -- Raylib's color palette
     constant BEIGE     : rgb_t := ( "1101", "1011", "1000" );
     constant BLACK     : rgb_t := ( "0000", "0000", "0000" );
@@ -51,5 +53,12 @@ package body color_util is
     begin
         return rgb_t'(not color.r, not color.g, not color.b);
     end function;
+
+    procedure nibbles_from_rgb(signal r,g,b : out std_logic_vector (3 downto 0); rgb : in rgb_t) is
+    begin
+        r <= rgb.r;
+        g <= rgb.g;
+        b <= rgb.b;
+    end;
 
 end color_util;

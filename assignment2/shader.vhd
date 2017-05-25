@@ -26,6 +26,8 @@ begin
         b <= "0000";
         if x = "0000000000" or y = "000000000" or x = "1001111111" or y = "111011111" then
             (r, g, b) <= WHITE;
+            -- aggregate assignment is VHDL 2008, if it doesn't work use a helper procedure:
+            -- nibbles_from_rgb(r, g, b, WHITE);
         end if;
     end process;
 end architecture;

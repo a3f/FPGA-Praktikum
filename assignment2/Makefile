@@ -8,6 +8,10 @@ all: sync.o txt_util.o color_util.o input.o square_shader.o bitmap ;
 
 square: txt_util.o color_util.o sync.o input.o square_shader.o bitmap;
 
+lfsr: lfsr.o lfsr_tb.o
+	ghdl -e $(GHDL_FLAGS) lfsr_tb
+	ghdl -r $(GHDL_FLAGS) lfsr_tb --vcd=lfsr_tb.vcd
+
 %.o: %.vhd
 	ghdl -a $(GHDL_FLAGS) $^
 
