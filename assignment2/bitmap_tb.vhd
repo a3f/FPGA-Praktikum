@@ -26,6 +26,7 @@ architecture behav of bitmap_tb is
           x : in std_logic_vector (9 downto 0); -- 640 = 10_1000_0000b
           y : in std_logic_vector (8 downto 0); -- 480 = 1_1110_0000b
 
+          retracing : in std_logic;
           origin_x : natural range 0 to 639;
           origin_y : natural range 0 to 479;
 
@@ -71,7 +72,7 @@ architecture behav of bitmap_tb is
         port map (clk, '0', '0', '0', '0', origin_x, origin_y);
         inst_square_shader: square_shader
         generic map (WIDTH => 64, HEIGHT => 48)
-        port map (col, row, origin_x, origin_y, r, g, b);
+        port map (col, row, retracing, origin_x, origin_y, r, g, b);
 
 
         clock: process

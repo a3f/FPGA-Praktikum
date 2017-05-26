@@ -9,7 +9,7 @@ entity square_shader is
     port (
           x : in std_logic_vector (9 downto 0); -- 640 = 10_1000_0000b
           y : in std_logic_vector (8 downto 0); -- 480 = 1_1110_0000b
-			 retracing : in std_logic;
+          retracing : in std_logic;
           origin_x : natural range 0 to 639;
           origin_y : natural range 0 to 479;
 
