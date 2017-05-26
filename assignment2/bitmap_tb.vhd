@@ -24,6 +24,7 @@ architecture behav of bitmap_tb is
     port (
           x : in std_logic_vector (9 downto 0); -- 640 = 10_1000_0000b
           y : in std_logic_vector (8 downto 0); -- 480 = 1_1110_0000b
+          retracing : in std_logic;
 
           r, g, b : out std_logic_vector (3 downto 0)
     );
@@ -49,7 +50,7 @@ architecture behav of bitmap_tb is
    --  Component instantiation.
         inst_sync:     sync     port map (clk, open, drawing, retracing, col, row);
         inst_shader: shader
-        port map (col, row, r, g, b);
+        port map (col, row, retracing, r, g, b);
 
 
         clock: process
@@ -61,16 +62,6 @@ architecture behav of bitmap_tb is
         printer: process (clk, retracing, drawing)
         file fp: text open write_mode is "vga.ppm";
 
-        function vtou16 ( a: std_logic_vector) return string is
-            variable b : string (1 to a'length) := (others => NUL);
-            variable stri : integer := 1; 
-        begin
-            for i in a'range loop
-                b(stri) := std_logic'image(a((i)))(2);
-                stri := stri+1;
-            end loop;
-            return b;
-        end vtou16;
         function octet ( v: std_logic_vector) return string is
         begin
             if v = "UUUU" then
