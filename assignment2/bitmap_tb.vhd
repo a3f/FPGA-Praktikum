@@ -24,6 +24,7 @@ architecture behav of bitmap_tb is
     port (
           x : in std_logic_vector (9 downto 0); -- 640 = 10_1000_0000b
           y : in std_logic_vector (8 downto 0); -- 480 = 1_1110_0000b
+          retracing : in std_logic;
 
           r, g, b : out std_logic_vector (3 downto 0)
     );
@@ -49,7 +50,7 @@ architecture behav of bitmap_tb is
    --  Component instantiation.
         inst_sync:     sync     port map (clk, open, drawing, retracing, col, row);
         inst_shader: shader
-        port map (col, row, r, g, b);
+        port map (col, row, retracing, r, g, b);
 
 
         clock: process

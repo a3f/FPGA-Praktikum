@@ -7,3 +7,4 @@ work/
 !work/.gitkeep
 .DS_Store
 *.lst
+*.sw*
