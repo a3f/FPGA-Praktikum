@@ -1,6 +1,7 @@
 *.cf
 *.vcd
 mynot_tb
+*.sw*
 myand_tb
 myor_tb
 work/

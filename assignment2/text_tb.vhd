@@ -18,7 +18,7 @@ architecture behav of text_tb is
     port (
          clk : in std_logic;
          hsync, vsync : out std_logic;
-         retracing : out std_logic := '0'; -- maybe we don't need this?
+         retracing : out std_logic := '0';
          col : out std_logic_vector (9 downto 0); -- 640 = 10_1000_0000b
          row : out std_logic_vector (8 downto 0) -- 480 = 1_1110_0000b
     );
@@ -28,6 +28,7 @@ architecture behav of text_tb is
     port (
           x : in std_logic_vector (9 downto 0); -- 640 = 10_1000_0000b
           y : in std_logic_vector (8 downto 0); -- 480 = 1_1110_0000b
+          retracing : in std_logic;
 
           r, g, b : out std_logic_vector (3 downto 0)
     );
@@ -50,7 +51,7 @@ architecture behav of text_tb is
     begin
    --  Component instantiation.
         inst_sync:     sync     port map (clk, hsync, vsync, retracing, col, row);
-        inst_shader: shader port map (col, row, r, g, b);
+        inst_shader: shader port map (col, row, retracing, r, g, b);
 
 
         clock: process
