@@ -50,6 +50,8 @@ begin
         if  x_int >= origin_x and x_int < origin_x + WIDTH
         and y_int >= origin_y and y_int < origin_y + HEIGHT then
            color_tmp := rgb_negate(color_tmp);
+           -- Should be single color according to Aufgabenstellung
+           color_tmp := BLUE;
         end if;
         (r, g, b) <= color_tmp;
         -- aggregate assignment is VHDL 2008, if it doesn't work use a helper procedure:
