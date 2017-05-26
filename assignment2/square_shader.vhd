@@ -39,8 +39,9 @@ begin
 
         color_tmp.r := x(9 downto 6);
         color_tmp.g := y(8 downto 5);
-         --color_tmp.b := "0000";
-         color_tmp.b := lfsr_cycle(color_tmp.b) xor x(4 downto 1) xor y(5 downto 2);
+        color_tmp.b := "0000";
+        --color_tmp.b := lfsr_cycle(color_tmp.b) xor x(6 downto 3) xor y(4 downto 1) xor color_tmp.r xor color_tmp.g; 
+         color_tmp.b(3) := '0';
 
         if x = "0000000000" or y = "000000000" or x = "1001111111" or y = "111011111" then
             color_tmp := WHITE;
