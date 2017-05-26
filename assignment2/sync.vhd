@@ -7,7 +7,7 @@ entity sync is
          clk : in std_logic;
          hsync : out std_logic := '1';
          vsync : out std_logic := '1';
-         retracing : out std_logic := '1'; -- maybe we don't need this?
+         retracing : out std_logic := '1';
 -- Dunno why, but if I zero-initialize these, the very first pixel is black in the bitmap_tb
          col : out std_logic_vector (9 downto 0) := (others => '1'); -- 640 = 10_1000_0000b
          row : out std_logic_vector (8 downto 0) := (others => '1') -- 480 = 1_1110_0000b

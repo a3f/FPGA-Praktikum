@@ -8,6 +8,7 @@ entity shader is
     port (
           x : in std_logic_vector (9 downto 0); -- 640 = 10_1000_0000b
           y : in std_logic_vector (8 downto 0); -- 480 = 1_1110_0000b
+			 retracing : in std_logic;
 
           r, g, b : out std_logic_vector (3 downto 0)
     );
@@ -19,16 +20,21 @@ architecture behavioral of shader is
     constant v_display  : integer := 480;
 
 begin
-    process(x, y)
+        
+    process(x, y, retracing)
     begin
+	   if (retracing = '1') then
+		-- Display calibrates its black with signal level during H-Sync
+			 (r, g, b) <= BLACK;
+		else
         r <= x(9 downto 6);
         g <= y(8 downto 5);
         b <= "0000";
+
         if x = "0000000000" or y = "000000000" or x = "1001111111" or y = "111011111" then
             (r, g, b) <= WHITE;
-            -- aggregate assignment is VHDL 2008, if it doesn't work use a helper procedure:
-            -- nibbles_from_rgb(r, g, b, WHITE);
         end if;
+		end if;
     end process;
 end architecture;
 
