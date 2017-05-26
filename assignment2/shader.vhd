@@ -23,8 +23,6 @@ begin
         
     process(x, y, retracing)
     begin
-	 	(r, g, b) <= BLACK;
-
 	   if (retracing = '1') then
 			 	(r, g, b) <= BLACK;
 		else
