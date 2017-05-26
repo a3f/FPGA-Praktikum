@@ -20,34 +20,18 @@ architecture behav of bitmap_tb is
     );
     end component;
 
-    component square_shader
-    generic (WIDTH, HEIGHT : natural);
+    component shader
     port (
           x : in std_logic_vector (9 downto 0); -- 640 = 10_1000_0000b
           y : in std_logic_vector (8 downto 0); -- 480 = 1_1110_0000b
-
-          origin_x : natural range 0 to 639;
-          origin_y : natural range 0 to 479;
 
           r, g, b : out std_logic_vector (3 downto 0)
     );
     end component;
 
-    component input
-    generic (X_MAX, Y_MAX : natural);
-    port (
-          clk : in std_logic;
-          up, down, right, left : in std_logic;
-
-          x : out integer range 1 to X_MAX - 1;
-          y : out natural range 1 to Y_MAX - 1
-    );
-    end component;
-
    --  Specifies which entity is bound with the component.
     for inst_sync:     sync     use entity work.sync;
-    for inst_square_shader: square_shader use entity work.square_shader;
-    for inst_input: input use entity work.input;
+    for inst_shader: shader use entity work.shader;
 
     signal clk : std_logic := '0';
     constant clk_rate   : natural := 25175000;
@@ -61,17 +45,11 @@ architecture behav of bitmap_tb is
 
     signal r, g, b : std_logic_vector (3 downto 0);
 
-    signal origin_x : natural range 0 to 639;
-    signal origin_y : natural range 0 to 479;
     begin
    --  Component instantiation.
         inst_sync:     sync     port map (clk, open, drawing, retracing, col, row);
-        inst_input: input
-        generic map (X_MAX => 640, Y_MAX => 480)
-        port map (clk, '0', '0', '0', '0', origin_x, origin_y);
-        inst_square_shader: square_shader
-        generic map (WIDTH => 64, HEIGHT => 48)
-        port map (col, row, origin_x, origin_y, r, g, b);
+        inst_shader: shader
+        port map (col, row, r, g, b);
 
 
         clock: process
